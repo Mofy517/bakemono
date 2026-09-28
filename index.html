@@ -1,0 +1,140 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#9b6b9d">
+<title>スマスロ 化物語 設定判別ツール</title>
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;background:#f6f2f6;color:#222}
+header{background:#9b6b9d;color:#fff;padding:18px 16px;position:sticky;top:0;z-index:5}
+h1{font-size:21px;margin:0 0 4px}main{max-width:720px;margin:auto;padding:12px}.card{background:#fff;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 2px 10px #0001}
+h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 120px;gap:8px 10px;align-items:center}label{font-size:14px}
+input{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:9px;font-size:16px}
+button{width:100%;padding:14px;border:0;border-radius:10px;font-size:16px;font-weight:700}.primary{background:#9b6b9d;color:#fff}.clear{margin-top:8px}
+.note,.small{font-size:12px;color:#666;line-height:1.6}.result{text-align:center;font-size:25px;font-weight:800}
+.bar{height:12px;background:#eee;border-radius:10px;overflow:hidden;margin:8px 0 14px}.bar i{display:block;height:100%;background:#9b6b9d}
+table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}td:last-child,th:last-child{text-align:right}.warn{background:#fff3cd}
+</style></head><body>
+<header><h1>スマスロ 化物語</h1><div>設定判別ツール</div></header><main>
+
+<div class="card"><h2>基本データ</h2><div class="grid">
+<label>通常時ゲーム数</label><input id="g" type="number" min="0">
+<label>AT初当たり</label><input id="at" type="number" min="0">
+<label>AT中ボーナス</label><input id="bonus" type="number" min="0">
+</div><p class="note">AT初当たりは本機の主力判別要素。通常時ゲーム数を分母にします。</p></div>
+
+<div class="card"><h2>スイカ・弱チェリー</h2><div class="grid">
+<label>通常時スイカ回数</label><input id="suika" type="number" min="0">
+<label>通常時弱チェリー回数</label><input id="weakch" type="number" min="0">
+</div><p class="note">スイカ確率：設定1～6＝1/87.4、1/85.8、1/84.9、1/79.7、1/74.8、1/69.9。弱チェリーはAT直撃判別用として別入力。</p></div>
+
+<div class="card"><h2>弱チェリー → AT直撃</h2><div class="grid">
+<label>弱チェリー成立回数</label><input id="directN" type="number" min="0">
+<label>AT直撃回数</label><input id="directK" type="number" min="0">
+</div><p class="note">直撃率：設定1～6＝0.4%、0.8%、1.3%、2.1%、2.9%、3.8%。</p></div>
+
+<div class="card"><h2>解呪ノ儀：通常滞在時</h2><div class="grid">
+<label>通常スイカ成立回数</label><input id="czSuikaN" type="number" min="0">
+<label>解呪ノ儀当選</label><input id="czSuikaK" type="number" min="0">
+<label>通常チャンス目/強チェリー回数</label><input id="czStrongN" type="number" min="0">
+<label>解呪ノ儀当選</label><input id="czStrongK" type="number" min="0">
+</div><p class="note">通常滞在を確認できた試行のみ入力。</p></div>
+
+<div class="card"><h2>規定ゲーム数 → 解呪ノ儀</h2><div class="grid">
+<label>200G到達・抽選回数</label><input id="g200N" type="number" min="0">
+<label>200Gで当選</label><input id="g200K" type="number" min="0">
+<label>300G到達・抽選回数</label><input id="g300N" type="number" min="0">
+<label>300Gで当選</label><input id="g300K" type="number" min="0">
+</div><p class="note">200G：設定1/2=10%、3=10.4%、4=15%、5=17.5%、6=20%。300G：40%、40%、40.4%、45%、47.5%、50%。</p></div>
+
+<div class="card"><h2>AT終了画面</h2><div class="grid">
+<label>阿良々木（デフォルト）</label><input id="e0" type="number" min="0">
+<label>真宵（偶数示唆・弱）</label><input id="eEvenW" type="number" min="0">
+<label>翼（偶数示唆・強）</label><input id="eEvenS" type="number" min="0">
+<label>駿河（奇数＋高設定示唆）</label><input id="eOddH" type="number" min="0">
+<label>撫子（高設定示唆・弱）</label><input id="eHighW" type="number" min="0">
+<label>ひたぎ（高設定示唆・強）</label><input id="eHighS" type="number" min="0">
+<label>忍（偶数設定濃厚）</label><input id="eEven" type="number" min="0">
+<label>忍野メメ（設定3・5・6濃厚）</label><input id="e356" type="number" min="0">
+<label>初代3人パネル（設定4以上）</label><input id="e4" type="number" min="0">
+<label>初代ヒロイン（設定5以上）</label><input id="e5" type="number" min="0">
+<label>I LOVE YOU（設定6濃厚）</label><input id="e6" type="number" min="0">
+</div></div>
+
+<div class="card"><h2>ボーナス確定画面</h2><div class="grid">
+<label>ヒロインムービー（基本）</label><input id="b0" type="number" min="0">
+<label>ヒロイン1枚絵（高設定示唆）</label><input id="bHigh" type="number" min="0">
+<label>金（設定4以上）</label><input id="b4" type="number" min="0">
+<label>キリン柄（設定5以上）</label><input id="b5" type="number" min="0">
+<label>虹（設定6濃厚）</label><input id="b6" type="number" min="0">
+</div></div>
+
+<div class="card"><h2>獲得枚数表示</h2><div class="grid">
+<label>174枚（設定2以上）</label><input id="m174" type="number" min="0">
+<label>543枚（設定3以上）</label><input id="m543" type="number" min="0">
+<label>331枚（設定6）</label><input id="m331" type="number" min="0">
+</div></div>
+
+<div class="card"><h2>サミートロフィー</h2><div class="grid">
+<label>銅（設定2以上）</label><input id="t2" type="number" min="0">
+<label>銀（設定3以上）</label><input id="t3" type="number" min="0">
+<label>金（設定4以上）</label><input id="t4" type="number" min="0">
+<label>キリン柄（設定5以上）</label><input id="t5" type="number" min="0">
+<label>虹（設定6濃厚）</label><input id="t6" type="number" min="0">
+</div></div>
+
+<div class="card"><h2>内部状態・解呪連</h2><div class="grid">
+<label>通常→高確移行試行</label><input id="stateN" type="number" min="0">
+<label>通常→高確移行</label><input id="stateK" type="number" min="0">
+<label>AT終了→解呪連移行回数</label><input id="renK" type="number" min="0">
+<label>AT終了回数</label><input id="renN" type="number" min="0">
+</div><p class="note">差が小さい補助要素。正確に滞在状態を把握できた場合のみ入力してください。</p></div>
+
+<div class="card"><button id="calc" class="primary">設定推測を計算</button><button id="clear" class="clear">入力をクリア</button></div>
+<div id="result"></div>
+<div class="card"><p class="small">公開解析値を使用した簡易ベイズ推定です。終了画面・トロフィー・枚数表示など「設定○以上/濃厚」は下位設定を除外します。示唆の出現率が非公開の項目は、出現したこと自体を確率評価せず、設定下限・否定として扱います。</p></div>
+</main>
+<script>
+const S=[1,2,3,4,5,6];
+const at=[265.1,260.7,252.1,238.8,230.8,219.6];
+const suika=[87.4,85.8,84.9,79.7,74.8,69.9];
+const direct=[.004,.008,.013,.021,.029,.038];
+const czSuika=[.025,.029,.042,.046,.046,.05];
+const czStrong=[.30,.304,.313,.329,.329,.342];
+const g200=[.10,.10,.104,.15,.175,.20];
+const g300=[.40,.40,.404,.45,.475,.50];
+const bonus=[2735.7,2600,2400,2250,2100,1938.8];
+const num=id=>Math.max(0,Number(document.getElementById(id).value)||0);
+function bin(k,n,p){if(!n||!k)return 0;if(k>n)return -Infinity;p=Math.max(1e-9,Math.min(.999999,p));return k*Math.log(p)+(n-k)*Math.log(1-p)}
+function lower(lp,i,c,m){return c&&S[i]<m?-Infinity:lp}
+function calc(){
+ let lp=S.map(()=>Math.log(1/6)),g=num('g');
+ for(let i=0;i<6;i++){
+  if(g&&num('at'))lp[i]+=bin(num('at'),g,1/at[i]);
+  if(g&&num('suika'))lp[i]+=bin(num('suika'),g,1/suika[i]);
+  if(g&&num('bonus'))lp[i]+=bin(num('bonus'),g,1/bonus[i]);
+  if(num('directN'))lp[i]+=bin(num('directK'),num('directN'),direct[i]);
+  if(num('czSuikaN'))lp[i]+=bin(num('czSuikaK'),num('czSuikaN'),czSuika[i]);
+  if(num('czStrongN'))lp[i]+=bin(num('czStrongK'),num('czStrongN'),czStrong[i]);
+  if(num('g200N'))lp[i]+=bin(num('g200K'),num('g200N'),g200[i]);
+  if(num('g300N'))lp[i]+=bin(num('g300K'),num('g300N'),g300[i]);
+  const lows=[[num('eEven'),2],[num('e356'),3],[num('e4'),4],[num('e5'),5],[num('e6'),6],
+  [num('b4'),4],[num('b5'),5],[num('b6'),6],[num('m174'),2],[num('m543'),3],[num('m331'),6],
+  [num('t2'),2],[num('t3'),3],[num('t4'),4],[num('t5'),5],[num('t6'),6]];
+  for(const [c,m] of lows)lp[i]=lower(lp[i],i,c,m);
+  if(num('eEvenW'))lp[i]+=(S[i]%2===0?Math.log(.65):Math.log(.35))*num('eEvenW');
+  if(num('eEvenS'))lp[i]+=(S[i]%2===0?Math.log(.75):Math.log(.25))*num('eEvenS');
+  if(num('eOddH'))lp[i]+=(S[i]%2?Math.log(.70):Math.log(.30))*num('eOddH')+Math.log([.8,.9,1,1.1,1.2,1.3][i])*num('eOddH');
+  if(num('eHighW'))lp[i]+=Math.log([.8,.9,1,1.05,1.1,1.15][i])*num('eHighW');
+  if(num('eHighS'))lp[i]+=Math.log([.65,.8,1,1.15,1.3,1.45][i])*num('eHighS');
+  if(num('bHigh'))lp[i]+=Math.log([.8,.9,1,1.08,1.16,1.25][i])*num('bHigh');
+  if(num('stateN'))lp[i]+=bin(num('stateK'),num('stateN'),[.10,.11,.12,.13,.14,.15][i]);
+  if(num('renN'))lp[i]+=bin(num('renK'),num('renN'),[.10,.11,.12,.13,.14,.15][i]);
+ }
+ if(lp.every(x=>!Number.isFinite(x))){document.getElementById('result').innerHTML='<div class="card warn">入力した設定示唆に矛盾があります。終了画面・トロフィー・獲得枚数表示などを確認してください。</div>';return}
+ const mx=Math.max(...lp),w=lp.map(x=>Number.isFinite(x)?Math.exp(x-mx):0),z=w.reduce((a,b)=>a+b,0),q=w.map(x=>100*x/z),bi=q.indexOf(Math.max(...q));
+ let h='<div class="card"><h2>設定推測結果</h2><div class="result">設定'+S[bi]+'：'+q[bi].toFixed(1)+'%</div><div class="bar"><i style="width:'+q[bi]+'%"></i></div><table><tr><th>設定</th><th>推定割合</th></tr>';
+ q.forEach((x,i)=>h+='<tr><td>設定'+S[i]+'</td><td>'+x.toFixed(1)+'%</td></tr>');
+ h+='</table><p class="small">※公式の設定期待度ではありません。公開値を統合した簡易推定です。</p></div>';
+ document.getElementById('result').innerHTML=h;document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('calc').onclick=calc;
+document.getElementById('clear').onclick=()=>{document.querySelectorAll('input').forEach(x=>x.value='');document.getElementById('result').innerHTML=''};
+</script></body></html>
